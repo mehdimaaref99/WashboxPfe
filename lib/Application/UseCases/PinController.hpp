@@ -4,7 +4,7 @@
 #include <vector>
 #include "../domain/Entities/PinPair.hpp"
 #include "../domain/Services/PinService.hpp"
-#include "../../include/BWash.hpp"
+#include "../../include/BspWash.hpp"
 
 class PinController {
 public:
