@@ -12,3 +12,6 @@ void StateExecutor::deactivatePort(int outputPin) {
 void StateExecutor::disablePort(int outputPin) {
     pinService.setPinMode(outputPin, LIGHTOFF);
 }
+
+std::string StateExecutor::readTestFile() {
+    return fileService.readFile("/test"); }

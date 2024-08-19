@@ -8,7 +8,7 @@ public:
 
 private:
     /// @brief 
-    int id; 
+    
     std::string adressMac;
     std::string adressIp;
     std::string adressIpServer;

@@ -3,6 +3,7 @@
 
 void PinController::updatePinStates() {
     for (const auto &pinPair : pinPairs) {
+        
         bool inputState = service.readPin(pinPair.getInputPin());
         service.writePin(pinPair.getOutputPin(), inputState ? LIGHTON : LIGHTOFF);
     }

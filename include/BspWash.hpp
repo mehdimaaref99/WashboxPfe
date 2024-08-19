@@ -18,4 +18,12 @@
 #define LIGHTON              1 
 #define LIGHTOFF             0
 
+#define ENABLE_PIN              1 
+#define DISABLE_PIN             0
+
+#define PIN_ON              1 
+#define PIN_OFF             0s
+
+
+
 #endif

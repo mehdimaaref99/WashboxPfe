@@ -6,6 +6,8 @@
 #include "../domain/Services/PinService.hpp"
 #include "../../include/BspWash.hpp"
 
+/// @brief dflkjflkdf
+
 class PinController {
 public:
     PinController(PinService &service, const std::vector<PinPair> &pinPairs)
