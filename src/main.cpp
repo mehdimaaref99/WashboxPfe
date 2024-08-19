@@ -24,17 +24,17 @@
 void configSystem();
 void configApplication();
 void testFileOperations();
-void brokerCommunication();
+//void brokerCommunication();
 void connectToWiFi();
 
 
 // Global instances
-ESP32PinService pinService;
-ESP32FileService fileService;
-PinController* pinController;
-StateExecutor* stateExecutor;
+//ESP32PinService pinService;
+//ESP32FileService fileService;
+//PinController* pinController;
+//StateExecutor* stateExecutor;
 WiFiService* wifiService;
-MQTTService mqttService("broker.hivemq.com", 1883);
+MQTTService mqttService("192.168.100.72", 1883);
 BrokerCommunication brokerComms(mqttService); 
 
 void setup() {
@@ -43,17 +43,48 @@ void setup() {
     connectToWiFi();
     configSystem();
     configApplication();
-    mqttService.setup();
+   mqttService.setup();
     testFileOperations();
+    
    
    
 }
+void messageReceivedCallback(char* test, char* payload) {
+    Serial.print("Message received on topic: ");
+    Serial.println(topic);
+    Serial.print("Message: ");
+    Serial.println(payload);
+}
+
+void connectToWiFi() {
+    wifiService = new WiFiService();
+    wifiService->connectToWiFi("H267A_C0BE_2.4G", "xQ9Zks6N");
+}
+
+void configSystem() {
+    // Your implementation
+}
+
+void configApplication() {
+    // Your implementation
+}
+
+void testFileOperations() {
+    // Your implementation
+}
+
+
 
 void loop() {
     
     // Update pin states, handle events, etc.
       mqttService.loop();
-
+      mqttService.publish("test", "Hello, my server!");
+      void MQTTService::subscribe("test");
+      mqttService.isConnected();
+      delay(10000);
+      
+/*
     delay(100); // Adjust delay as needed
     // State Executor
       if (Serial.available()) {
@@ -70,13 +101,13 @@ void loop() {
                 break;
             default:
                 break;
-        }
-    } }
+        }*/
+    } 
 
  
     
 
-void configSystem() {
+/*void configSystem() {
 
     // init all infrastructure services
     //1- timer
@@ -99,7 +130,7 @@ void configSystem() {
     for (const auto &pinPair : pinPairs) {
         pinMode(pinPair.getInputPin(), INPUT);
         pinMode(pinPair.getOutputPin(), OUTPUT);
-    } }
+    } }*/
     
 
 
@@ -111,7 +142,7 @@ void configSystem() {
 
 
 
-void configApplication() {
+/*void configApplication() {
   brokerComms.setup(); 
    
    //lecture des fichiers de configuration
@@ -139,13 +170,10 @@ void configApplication() {
     // Update an existing pin pair
     pinController->updatePinPair(PIN_I5, PinPair(PIN_I5, PIN_O4));
      
-}
-void connectToWiFi() {
-    wifiService = new WiFiService();
-    wifiService->connectToWiFi("Fixbox-701BCF", "NjgyMTU3");
-}
+}*/
 
-void testFileOperations() {
+
+/*void testFileOperations() {
     // Write to the file
     fileService.writeFile("/test", "Hello, ESP32!");
 
@@ -153,4 +181,4 @@ void testFileOperations() {
     std::string content = fileService.readFile("/test");
     Serial.println("File Content:");
     Serial.println(content.c_str());
-}
+}*/
