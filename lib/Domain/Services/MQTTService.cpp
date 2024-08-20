@@ -18,6 +18,7 @@ void MQTTService::loop() {
 
 void MQTTService::publish(const char* topic, const char* message) {
     if (client.connected()) {
+        Serial.println("MQTT is connected. is publishing message...");
         client.publish(topic, message);
     } else {
         Serial.println("MQTT not connected. Cannot publish message.");
@@ -34,6 +35,8 @@ void MQTTService::subscribe(const char* topic, MQTTClientCallbackSimple callback
         Serial.println("MQTT not connected. Cannot subscribe to topic.");
     }
 }
+
+
 
 bool MQTTService::isConnected() {
     return client.connected();

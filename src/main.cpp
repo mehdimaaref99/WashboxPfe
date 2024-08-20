@@ -26,6 +26,7 @@ void configApplication();
 void testFileOperations();
 //void brokerCommunication();
 void connectToWiFi();
+void messageReceivedCallback(String &topic, String &payload);
 
 
 // Global instances
@@ -44,18 +45,15 @@ void setup() {
     configSystem();
     configApplication();
    mqttService.setup();
+   mqttService.subscribe("test", messageReceivedCallback);
     testFileOperations();
-    
-   
-   
 }
-void messageReceivedCallback(char* test, char* payload) {
+void messageReceivedCallback(String &topic, String &payload) {
     Serial.print("Message received on topic: ");
     Serial.println(topic);
-    Serial.print("Message: ");
+    Serial.print("Payload: ");
     Serial.println(payload);
 }
-
 void connectToWiFi() {
     wifiService = new WiFiService();
     wifiService->connectToWiFi("H267A_C0BE_2.4G", "xQ9Zks6N");
@@ -77,108 +75,15 @@ void testFileOperations() {
 
 void loop() {
     
-    // Update pin states, handle events, etc.
+    
       mqttService.loop();
       mqttService.publish("test", "Hello, my server!");
-      void MQTTService::subscribe("test");
       mqttService.isConnected();
       delay(10000);
       
-/*
-    delay(100); // Adjust delay as needed
-    // State Executor
-      if (Serial.available()) {
-        char command = Serial.read();
-        switch (command) {
-            case 'a': // Activate a port (example)
-                stateExecutor->activatePort(PIN_O1);
-                break;
-            case 'd': // Deactivate a port (example)
-                stateExecutor->deactivatePort(PIN_O1);
-                break;
-            case 'x': // Disable a port (example)
-                stateExecutor->disablePort(PIN_O1);
-                break;
-            default:
-                break;
-        }*/
+
     } 
 
  
     
 
-/*void configSystem() {
-
-    // init all infrastructure services
-    //1- timer
-    //2- digital pins
-    //3- file
-    //4- network
-    //5- tasks
-    // Define initial pin pairs (input pin, output pin)
-
-
-    std::vector<PinPair> pinPairs = {
-        PinPair(PIN_I1, PIN_O1),
-        PinPair(PIN_I2, PIN_O2),
-        PinPair(PIN_I3, PIN_O3),
-        PinPair(PIN_I4, PIN_O4),
-        PinPair(PIN_I5, PIN_O5)
-    };
-
-    // Initialize pins
-    for (const auto &pinPair : pinPairs) {
-        pinMode(pinPair.getInputPin(), INPUT);
-        pinMode(pinPair.getOutputPin(), OUTPUT);
-    } }*/
-    
-
-
-   
-
-
-
-  
-
-
-
-/*void configApplication() {
-  brokerComms.setup(); 
-   
-   //lecture des fichiers de configuration
-   
-    // Define initial pin pairs (input pin, output pin)
-    std::vector<PinPair> pinPairs = {
-        PinPair(PIN_I1, PIN_O1),
-        PinPair(PIN_I2, PIN_O2),
-        PinPair(PIN_I3, PIN_O3),
-        PinPair(PIN_I4, PIN_O4),
-        PinPair(PIN_I5, PIN_O5)
-    };
-
-    //PinController pinController(pinService, pinPairs);
-    pinController = new PinController(pinService, pinPairs);
-    stateExecutor = new StateExecutor(pinService, fileService);
-
-    // Example of dynamically updating pin pairs (this could be triggered by some event or command)
-    // Remove a pin pair
-    pinController->removePinPair(PIN_I2);
-
-    // Add a new pin pair
-    pinController->addPinPair(PinPair(PIN_I4, PIN_O2));
-
-    // Update an existing pin pair
-    pinController->updatePinPair(PIN_I5, PinPair(PIN_I5, PIN_O4));
-     
-}*/
-
-
-/*void testFileOperations() {
-    // Write to the file
-    fileService.writeFile("/test", "Hello, ESP32!");
-
-    // Read from the file
-    std::string content = fileService.readFile("/test");
-    Serial.println("File Content:");
-    Serial.println(content.c_str());
-}*/
