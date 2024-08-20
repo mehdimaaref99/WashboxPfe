@@ -5,9 +5,8 @@
 
 class FileService {
 public:
-    virtual ~FileService() {}
-    virtual std::string readFile(const char* path) = 0;
-    virtual void writeFile(const char* path, const std::string& content) = 0;
+    virtual void writeFile(const std::string& path, const std::string& message) = 0;
+    virtual std::string readFile(const char* path) = 0; // Ensure this method is virtual and matches
 };
 
-#endif // FILE_SERVICE_HPP
+#endif

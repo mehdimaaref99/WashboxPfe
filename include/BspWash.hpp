@@ -12,7 +12,7 @@
 #define PIN_O1              20
 #define PIN_O2              21
 #define PIN_O3              22
-#define PIN_O4              23
+//#define PIN_O4              23
 #define PIN_O5              25
 // Constant
 #define LIGHTON              1 
@@ -22,7 +22,9 @@
 #define DISABLE_PIN             0
 
 #define PIN_ON              1 
-#define PIN_OFF             0s
+#define PIN_OFF             0
+#define OUT_1       23 
+#define BUZ_Alarm   13
 
 
 

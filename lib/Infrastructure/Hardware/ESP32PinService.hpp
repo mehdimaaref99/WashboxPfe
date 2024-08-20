@@ -9,6 +9,7 @@ public:
     bool readPin(int pin) override;
     void writePin(int pin, bool state) override;
     void setPinMode( int pin, int mode) ;
+    void initializePins();
 };
 
 #endif // ESP32_PIN_SERVICE_HPP

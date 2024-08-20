@@ -1,10 +1,19 @@
 #include "ESP32FileService.hpp"
-#include <Arduino.h>
+#include <SPIFFS.h>
+
 
 ESP32FileService::ESP32FileService() {
-    if (!SPIFFS.begin(true)) {
-        Serial.println("An Error has occurred while mounting SPIFFS");
+   
+}
+
+void ESP32FileService::writeFile(const std::string& path, const std::string& message) {
+    File file = SPIFFS.open(path.c_str(), FILE_APPEND);
+    if (!file) {
+        Serial.println("Failed to open file for writing");
+        return;
     }
+    file.println(message.c_str());
+    file.close();
 }
 
 std::string ESP32FileService::readFile(const char* path) {
@@ -13,20 +22,10 @@ std::string ESP32FileService::readFile(const char* path) {
         Serial.println("Failed to open file for reading");
         return "";
     }
-    std::string content = "";
+    std::string content;
     while (file.available()) {
-        content += (char)file.read();
+        content += static_cast<char>(file.read());
     }
     file.close();
     return content;
-}
-
-void ESP32FileService::writeFile(const char* path, const std::string& content) {
-    File file = SPIFFS.open(path, FILE_WRITE);
-    if (!file) {
-        Serial.println("Failed to open file for writing");
-        return;
-    }
-    file.print(content.c_str());
-    file.close();
 }
